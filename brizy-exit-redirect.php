@@ -2,13 +2,15 @@
 /**
  * Plugin Name: Brizy Exit Redirect
  * Plugin URI: https://github.com/dustysmba/brizy-exit-redirect
- * Description: Redirects the Brizy editor "Go to Dashboard" button to the frontend permalink of the page being edited.
+ * Description: Redirects the Brizy editor "Go to Dashboard" button to the frontend permalink of the page being edited. Also hides the comments button from the admin bar.
  * Version: 1.0.0
  * Author: dustysmba
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Requires at least: 5.0
  * Requires PHP: 7.2
+ * GitHub Plugin URI: ordinary82/brizy-exit-redirect
+ * Primary Branch: main
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,6 +18,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_action( 'wp_enqueue_scripts', 'brizy_exit_redirect_enqueue', 9999 );
+
+add_action( 'admin_bar_menu', 'brizy_exit_redirect_hide_comments', 999 );
+
+function brizy_exit_redirect_hide_comments( $wp_admin_bar ) {
+	$wp_admin_bar->remove_node( 'comments' );
+}
 
 function brizy_exit_redirect_enqueue() {
 	if ( ! isset( $_GET['brizy-edit'] ) ) {
