@@ -1,0 +1,23 @@
+name: Build Release Zip
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build plugin zip
+        run: |
+          mkdir brizy-exit-redirect
+          rsync -av --exclude='.git' --exclude='.github' --exclude='.DS_Store' ./ brizy-exit-redirect/
+          zip -r brizy-exit-redirect.zip brizy-exit-redirect/
+
+      - name: Attach zip to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: brizy-exit-redirect.zip
