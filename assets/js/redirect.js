@@ -15,10 +15,12 @@
 				}
 				link.dataset.brizyRedirected = '1';
 				link.setAttribute( 'href', permalink );
+				link.textContent = 'View Live Page';
 				link.addEventListener( 'click', function ( e ) {
 					e.preventDefault();
 					e.stopPropagation();
-					window.location.href = permalink;
+					var targetWindow = ( link.ownerDocument.defaultView || window.top );
+					targetWindow.location.href = permalink;
 				}, true );
 			}
 		});
@@ -75,4 +77,36 @@
 	// Periodically check for new iframes.
 	setInterval( observeIframes, 2000 );
 	observeIframes();
+
+	// Also hijack the "Go to Dashboard" link in the parent document (Brizy
+	// renders the editor chrome in the parent frame while this script runs
+	// inside the editor iframe).
+	function observeParent() {
+		try {
+			if ( window.parent && window.parent.document !== document ) {
+				hijackDashboardLink( window.parent.document );
+				var parentObserver = new MutationObserver( function ( mutations ) {
+					mutations.forEach( function ( mutation ) {
+						mutation.addedNodes.forEach( function ( node ) {
+							if ( node.nodeType === 1 ) {
+								hijackDashboardLink( node );
+							}
+						});
+					});
+				});
+				var parentBody = window.parent.document.body || window.parent.document.documentElement;
+				if ( parentBody ) {
+					parentObserver.observe( parentBody, {
+						childList: true,
+						subtree: true,
+					});
+				}
+			}
+		} catch ( e ) {
+			// Cross-origin parent; skip.
+		}
+	}
+
+	setInterval( observeParent, 2000 );
+	observeParent();
 })();

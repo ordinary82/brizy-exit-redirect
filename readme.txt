@@ -4,7 +4,7 @@ Tags: brizy, redirect, editor, dashboard, page builder
 Requires at least: 5.0
 Tested up to: 6.7
 Requires PHP: 7.2
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,9 @@ This is useful when you want to quickly preview your changes without navigating 
 3. That's it — the redirect is automatic whenever you use the Brizy editor.
 
 == Changelog ==
+
+= 1.0.1 =
+* Skip the redirect when editing Brizy templates (CPT `editor-template`), which have no frontend permalink.
 
 = 1.0.0 =
 * Initial release.
