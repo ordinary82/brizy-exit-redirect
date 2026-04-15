@@ -3,7 +3,7 @@
  * Plugin Name: Brizy Exit Redirect
  * Plugin URI: https://github.com/dustysmba/brizy-exit-redirect
  * Description: Redirects the Brizy editor "Go to Dashboard" button to the frontend permalink of the page being edited. Also hides the comments button from the admin bar.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: dustysmba
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -61,7 +61,7 @@ function brizy_exit_redirect_enqueue() {
 		'brizy-exit-redirect',
 		plugin_dir_url( __FILE__ ) . 'assets/js/redirect.js',
 		array(),
-		'1.0.1',
+		'1.0.2',
 		true
 	);
 
