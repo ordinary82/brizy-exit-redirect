@@ -17,7 +17,7 @@ jobs:
       - name: Build plugin zip
         run: |
           mkdir brizy-exit-redirect
-          rsync -av --exclude='.git' --exclude='.github' --exclude='.DS_Store' ./ brizy-exit-redirect/
+          rsync -av --exclude='.git' --exclude='.github' --exclude='.DS_Store' --exclude='.claude' ./ brizy-exit-redirect/
           zip -r brizy-exit-redirect.zip brizy-exit-redirect/
 
       - name: Attach zip to release
